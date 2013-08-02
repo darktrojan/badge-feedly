@@ -1,6 +1,7 @@
 let title;
 let badge = 0;
 let lastSet = "";
+let unreadCount;
 let mutationOptions = { childList: true };
 
 function getTitle() {
@@ -28,21 +29,29 @@ let titleObserver = new MutationObserver(function(aRecords, aObserver) {
 	setTitle();
 });
 
-titleObserver.observe(document.querySelector("title"), mutationOptions);
-
-let unreadCount = document.querySelector("#latesttab .simpleUnreadCount");
 let unreadCountObserver = new MutationObserver(function(aRecords, aObserver) {
 	getUnreadCount();
 	setTitle();
 });
 
-unreadCountObserver.observe(unreadCount, mutationOptions);
+init();
 
-getTitle();
-getUnreadCount();
-setTitle();
+function init() {
+	unreadCount = document.querySelector("#latesttab .simpleUnreadCount");
+	if (!unreadCount) {
+		setTimeout(init, 500);
+		return;
+	}
 
-self.on("detach", function() {
-	titleObserver.disconnect();
-	unreadCountObserver.disconnect();
-});
+	getTitle();
+	getUnreadCount();
+	setTitle();
+
+	unreadCountObserver.observe(unreadCount, mutationOptions);
+	titleObserver.observe(document.querySelector("title"), mutationOptions);
+
+	self.on("detach", function() {
+		titleObserver.disconnect();
+		unreadCountObserver.disconnect();
+	});
+}
