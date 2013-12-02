@@ -5,5 +5,5 @@
 	"description": "Adds an \"unread items\" count to the page title when you're viewing Feedly.",
 	"author": "Geoff Lankow",
 	"license": "MPL 2.0",
-	"version": "2"
+	"version": "3"
 }
