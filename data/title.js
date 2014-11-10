@@ -37,7 +37,7 @@ let unreadCountObserver = new MutationObserver(function(aRecords, aObserver) {
 init();
 
 function init() {
-	unreadCount = document.querySelector("#latesttab .simpleUnreadCount");
+	unreadCount = document.querySelector("#latesttab .staticSimpleUnreadCount");
 	if (!unreadCount) {
 		setTimeout(init, 500);
 		return;
